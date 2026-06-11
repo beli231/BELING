@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microorganismos en la Mesa | Bioinsumos Alimentarios en Argentina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #F7F3ED;
+      --wine:     #7B1F3A;
+      --gold:     #C9973A;
+      --sage:     #5A7A5C;
+      --blush:    #E8C9B0;
+      --dark:     #1C1C1E;
+      --mid:      #4A4A4C;
+      --light:    #FFFFFF;
+      --accent-blue: #3A6B8A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--wine) 0%, #3D0E1E 60%, #1C0A0F 100%);
+      color: var(--light);
+      text-align: center;
+      padding: 56px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(201,151,58,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-weight: 700;
+      color: var(--blush);
+      margin-bottom: 22px;
+    }
+    .hero p {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.82);
+    }
+    .hero p strong { color: var(--gold); }
+
+    /* ── LAYOUT ── */
+    .grid-main {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── COLUMN HEADERS ── */
+    .col-header {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 28px 20px 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .col-header.lacteos { color: var(--accent-blue); }
+    .col-header.comparativa { color: var(--wine); }
+    .col-header.enologica { color: var(--sage); }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 24px 22px;
+      margin: 10px 12px;
+      box-shadow: 0 2px 14px rgba(0,0,0,.07);
+      border-top: 4px solid var(--gold);
+    }
+    .card.wine-border  { border-top-color: var(--wine); }
+    .card.sage-border  { border-top-color: var(--sage); }
+    .card.blue-border  { border-top-color: var(--accent-blue); }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .card p {
+      font-size: .88rem;
+      line-height: 1.65;
+      color: var(--mid);
+    }
+    .card p strong { color: var(--dark); font-style: italic; }
+
+    /* ── HIGHLIGHT BOX (formulación) ── */
+    .highlight-box {
+      background: #FFF7EC;
+      border: 1.5px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 10px 12px;
+      font-size: .83rem;
+      line-height: 1.6;
+      color: var(--mid);
+    }
+    .highlight-box strong {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    /* ── COMPARATIVA TABLE ── */
+    .comp-wrapper {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .comp-card {
+      background: var(--light);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 14px rgba(0,0,0,.07);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .comp-card .org-icon {
+      font-size: 2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .comp-card .org-info { flex: 1; }
+    .comp-card .org-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .comp-card .tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: .06em;
+      padding: 2px 9px;
+      border-radius: 20px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .tag-destino { background: #EFF5FF; color: var(--accent-blue); }
+    .tag-funcion { background: #FFF3F5; color: var(--wine); }
+    .comp-card p {
+      font-size: .84rem;
+      color: var(--mid);
+      line-height: 1.55;
+    }
+
+    /* Accent colors per organism */
+    .org-bulgaricus .org-name { color: var(--accent-blue); }
+    .org-cerevisiae .org-name { color: var(--wine); }
+    .org-freudenreichii .org-name { color: var(--sage); }
+
+    /* ── RIGHT COLUMN ── */
+    .col-right {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── INSTITUCIONES ── */
+    .inst-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .inst-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+      background: var(--cream);
+      border: 1.5px solid var(--sage);
+      color: var(--sage);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    /* ── DIVIDER ── */
+    .col-divider {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,.1) 20%, rgba(0,0,0,.1) 80%, transparent);
+      margin: 20px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 20px;
+      font-size: .78rem;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: .06em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+      .col-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">Microbiología Agrícola · Argentina</p>
+    <h1>Microorganismos <span>en la Mesa</span></h1>
+    <h2>Bioinsumos Alimentarios en Argentina</h2>
+    <p>El rol esencial de bacterias y levaduras específicas en la producción de
+      <strong>yogur, queso y vino</strong> dentro de la industria alimentaria argentina.
+      Estos bioinsumos transforman materias primas mediante procesos fermentativos
+      regulados por el <strong>Código Alimentario Argentino</strong>.
+    </p>
+  </header>
+
+  <!-- MAIN GRID -->
+  <div class="grid-main">
+
+    <!-- ── COLUMNA IZQUIERDA: LÁCTEOS ── -->
+    <div class="col-left">
+      <div class="col-header lacteos">🧪 Innovación Biotecnológica en Lácteos</div>
+
+      <div class="card blue-border">
+        <div class="card-icon">🥛</div>
+        <h3>Acidificación y Textura del Yogur</h3>
+        <p>El <strong>L. bulgaricus</strong> actúa como cultivo iniciador, requiriendo simbiosis para coagular la leche y lograr la acidez y textura características.</p>
+      </div>
+
+      <div class="card blue-border">
+        <div class="card-icon">🧀</div>
+        <h3>Los "Ojos" y Protección del Queso</h3>
+        <p>El <strong>P. freudenreichii</strong> genera el CO₂ que forma los agujeros típicos del queso Emmental y produce compuestos que combaten patógenos.</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>📦 Formulación en Polvo Ligfilizado</strong>
+        Ambos bioinsumos lácteos se comercializan principalmente como cultivos concentrados para asegurar su viabilidad y vida útil.
+      </div>
+    </div>
+
+    <div class="col-divider"></div>
+
+    <!-- ── COLUMNA CENTRAL: COMPARATIVA ── -->
+    <div class="col-center">
+      <div class="col-header comparativa">🔬 Comparativa: Microorganismos y Destinos</div>
+
+      <div class="comp-wrapper">
+
+        <div class="comp-card org-bulgaricus">
+          <div class="org-icon">🦠</div>
+          <div class="org-info">
+            <div class="org-name">Lactobacillus bulgaricus</div>
+            <span class="tag tag-destino">Destino: Yogur</span>
+            <span class="tag tag-funcion">Bacteria ácido-láctica</span>
+            <p>Función clave: <strong>desarrollo de sabor y textura</strong> a través de la acidificación del sustrato lácteo.</p>
+          </div>
+        </div>
+
+        <div class="comp-card org-cerevisiae">
+          <div class="org-icon">🍷</div>
+          <div class="org-info">
+            <div class="org-name">Saccharomyces cerevisiae</div>
+            <span class="tag tag-destino">Destino: Vino</span>
+            <span class="tag tag-funcion">Levadura</span>
+            <p>Función clave: <strong>fermentación alcohólica aromática</strong>. El INTA desarrolló cepas autóctonas para resaltar aromas del terruño mendocino.</p>
+          </div>
+        </div>
+
+        <div class="comp-card org-freudenreichii">
+          <div class="org-icon">🧀</div>
+          <div class="org-info">
+            <div class="org-name">Propionibacterium freudenreichii</div>
+            <span class="tag tag-destino">Destino: Queso Emmental</span>
+            <span class="tag tag-funcion">Bacteria propiónica</span>
+            <p>Función clave: <strong>formación de ojos y flavor suizo</strong> mediante producción de CO₂ y ácido propiónico.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-divider"></div>
+
+    <!-- ── COLUMNA DERECHA: VINO + RESPALDO ── -->
+    <div class="col-right">
+      <div class="col-header enologica">🍇 Excelencia Enológica y Regulación</div>
+
+      <div class="card sage-border">
+        <div class="card-icon">🏔️</div>
+        <h3>Potenciando el Terruño Mendocino</h3>
+        <p>El <strong>INTA</strong> desarrolló cepas nativas de <em>S. cerevisiae</em> especialmente seleccionadas para resaltar los aromas y características regionales del vino argentino.</p>
+      </div>
+
+      <div class="card wine-border">
+        <div class="card-icon">🏛️</div>
+        <h3>Respaldo Científico e Institucional</h3>
+        <p>Los bioinsumos han sido validados por instituciones de referencia nacional y registrados ante la autoridad sanitaria competente.</p>
+        <div class="inst-badges">
+          <span class="inst-badge">CONICET</span>
+          <span class="inst-badge">UNLP</span>
+          <span class="inst-badge">INTA</span>
+          <span class="inst-badge">ANMAT</span>
+          <span class="inst-badge">CAA</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    Elaborado para <span>Microbiología Agrícola · UCC / FCA</span> &nbsp;|&nbsp; Fuente: NotebookLM
+  </footer>
+
+</body>
+</html>
